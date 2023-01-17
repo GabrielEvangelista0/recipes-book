@@ -12,6 +12,8 @@ import { themeLightMode } from "../src/theme/theme";
 
 export default function Home() {
   const Setreceitas = useSetRecoilState(listaDeReceitas)
+  const lightSwitch = useSetRecoilState(themeSwitchState)
+  const lightSwitchState = useRecoilValue(themeSwitchState)
   const receitas = useRecoilValue(listaDeReceitas)
   const options = {
     method: 'GET',
@@ -27,8 +29,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const lightSwitchState = useRecoilValue(themeSwitchState)
-    const lightSwitch = useSetRecoilState(themeSwitchState)
     const recipeList = JSON.parse(localStorage.getItem('recipelist'))
     const darkMode = localStorage.getItem('darkMode')
 
@@ -48,7 +48,7 @@ export default function Home() {
     } else {
       Setreceitas(recipeList)
     }
-  }, [])
+  }, [Setreceitas, lightSwitchState, Setreceitas])
 
   return (
     <div>

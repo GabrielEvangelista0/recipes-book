@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { useRecoilValue, useSetRecoilState } from "recoil"
-import styled, { ThemeProvider } from "styled-components"
+import styled, {ThemeProvider} from "styled-components"
 import Button from "../../src/components/Button/Button"
 import Footer from "../../src/components/Footer/Footer"
 import Header from "../../src/components/Header/Header"
@@ -22,55 +22,54 @@ export default function RecipePage() {
 	console.log(savedRecipes)
 
 	useEffect(() => {
-		const lightSwitchState = useRecoilValue(themeSwitchState)
-		const lightSwitch = useSetRecoilState(themeSwitchState)
 		const darkMode = localStorage.getItem('darkMode')
-		if (darkMode == 'on') {
+		if(darkMode == 'on'){
 			lightSwitch(lightSwitchState == true ? !lightSwitchState : lightSwitchState)
-		} else {
+		  }else{
 			lightSwitch(true)
-		}
-	}, [])
+		  }
+			lightSwitch(lightSwitchState == true ? !lightSwitchState : lightSwitchState)
+		},[lightSwitch, lightSwitchState])
 
 	return (
 		<div>
 			<Header />
-			<ThemeProvider theme={lightSwitchState == true ? themeLightMode : themeDarkMode}>
-				<StyledRandomRecipe>
-					<Recipe
-						image={recipeList[index].image}
-						title={recipeList[index].title}
-						ingredients={recipeList[index].extendedIngredients}
-						instructions={recipeList[index].instructions}
-					/>
+			<ThemeProvider theme={lightSwitchState == true? themeLightMode: themeDarkMode}>
+			<StyledRandomRecipe>
+				<Recipe
+					image={recipeList[index].image}
+					title={recipeList[index].title}
+					ingredients={recipeList[index].extendedIngredients}
+					instructions={recipeList[index].instructions}
+				/>
 
-					<div className="ingredients">
-						<h3>
-							Ingredients
-						</h3>
-						<ul>
-							{recipeList[index].extendedIngredients.map(ingredient => (
-								<li>
-									{`${ingredient.amount} ${ingredient.name}`}
-								</li>
-							))}
-						</ul>
-					</div>
+				<div className="ingredients">
+					<h3>
+						Ingredients
+					</h3>
+					<ul>
+						{recipeList[index].extendedIngredients.map(ingredient => (
+							<li>
+								{`${ingredient.amount} ${ingredient.name}`}
+							</li>
+						))}
+					</ul>
+                    </div>
 
-					<Button
-						text='Save Recipe'
-						size={300}
-						m={2}
-						onClick={() => {
-							const newList = [...savedRecipes];
-							newList.push(recipeList[index]);
-							setSaveRecipe(newList);
-							localStorage.setItem('savedrecipes', JSON.stringify(newList));
-							alert('recipe saved');
-						}}
-					/>
+				<Button
+					text='Save Recipe'
+					size= {300}
+					m={2}
+					onClick={() => {
+						const newList = [...savedRecipes];
+						newList.push(recipeList[index]);
+						setSaveRecipe(newList);
+						localStorage.setItem('savedrecipes', JSON.stringify(newList));
+						alert('recipe saved');
+					}}
+				/>
 
-				</StyledRandomRecipe>
+			</StyledRandomRecipe>
 			</ThemeProvider>
 			<Footer />
 		</div>
