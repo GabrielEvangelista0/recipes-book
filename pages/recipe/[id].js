@@ -37,10 +37,10 @@ export default function RecipePage() {
 			<ThemeProvider theme={lightSwitchState == true? themeLightMode: themeDarkMode}>
 			<StyledRandomRecipe>
 				<Recipe
-					image={recipeList[index].image}
-					title={recipeList[index].title}
-					ingredients={recipeList[index].extendedIngredients}
-					instructions={recipeList[index].instructions}
+					image={recipeList[index] && recipeList[index].image}
+					title={recipeList[index] && recipeList[index].title}
+					ingredients={recipeList[index] && recipeList[index].extendedIngredients}
+					instructions={recipeList[index] && recipeList[index].instructions}
 				/>
 
 				<div className="ingredients">
