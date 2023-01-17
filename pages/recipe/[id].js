@@ -48,7 +48,7 @@ export default function RecipePage() {
 						Ingredients
 					</h3>
 					<ul>
-						{recipeList[index].extendedIngredients.map(ingredient => (
+						{recipeList[index] && recipeList[index].extendedIngredients.map(ingredient => (
 							<li key={ingredient.id}>
 								{`${ingredient.amount} ${ingredient.name}`}
 							</li>
