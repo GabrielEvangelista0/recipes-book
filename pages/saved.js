@@ -11,16 +11,17 @@ import Button from "../src/components/Button/Button"
 export default function SavedRecipes() {
 	const setSavedRecipe = useSetRecoilState(savedRecipesState)
 	const savedRecipes = useRecoilValue(savedRecipesState)
-	const lightSwitchState = useRecoilValue(themeSwitchState)
-	const lightSwitch = useSetRecoilState(themeSwitchState)
+	
 	useEffect(() => {
+		const lightSwitchState = useRecoilValue(themeSwitchState)
+		const lightSwitch = useSetRecoilState(themeSwitchState)
 		const darkMode = localStorage.getItem('darkMode')
 		setSavedRecipe(JSON.parse(localStorage.getItem('savedrecipes')))
-		if(darkMode == 'on'){
+		if (darkMode == 'on') {
 			lightSwitch(lightSwitchState == true ? !lightSwitchState : lightSwitchState)
-		  }else{
+		} else {
 			lightSwitch(true)
-		  }
+		}
 	}, [])
 	console.log(savedRecipes);
 	return (
@@ -30,7 +31,7 @@ export default function SavedRecipes() {
 				<StyledSavedRecipes>
 					<h2>My recipes</h2>
 					<div className="grid-container">
-						{savedRecipes != null ? savedRecipes.map((recipe,index) => (
+						{savedRecipes != null ? savedRecipes.map((recipe, index) => (
 							<div className="grid-item" key={index}>
 								<RecepieCard
 									title={recipe.title}
@@ -38,16 +39,16 @@ export default function SavedRecipes() {
 									to={`/recipe/${recipe.id}`}
 								/>
 								<Button
-								m={2}
-								text='Remove Recipe'
-								size={200}
-								onClick={() => {
-									const newlist = [...savedRecipes];
-									const index = newlist.findIndex(item => item.id == recipe.id)
-									newlist.splice(index, 1)
-									setSavedRecipe(newlist)
-									localStorage.setItem('savedrecipes', JSON.stringify(savedRecipes))
-								}}
+									m={2}
+									text='Remove Recipe'
+									size={200}
+									onClick={() => {
+										const newlist = [...savedRecipes];
+										const index = newlist.findIndex(item => item.id == recipe.id)
+										newlist.splice(index, 1)
+										setSavedRecipe(newlist)
+										localStorage.setItem('savedrecipes', JSON.stringify(savedRecipes))
+									}}
 								/>
 							</div>
 						)) : <p> 0 recipes saved</p>}
