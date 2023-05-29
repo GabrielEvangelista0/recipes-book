@@ -9,6 +9,7 @@ import RecepieCard from "../src/components/RecepeCard/RecepeCard";
 import Recommendations from "../src/components/Recommendations/Recommendations";
 import { listaDeReceitas, themeSwitchState } from "../src/state/atom"
 import { themeLightMode } from "../src/theme/theme";
+import { getRecipes } from "../src/services/getRecipes";
 
 export default function Home() {
   const Setreceitas = useSetRecoilState(listaDeReceitas)
@@ -61,13 +62,14 @@ export default function Home() {
             text='new recipes'
             m={2}
             onClick={() => {
-              axios.request(options).then(function (response) {
+              getRecipes()
+              /*axios.request(options).then(function (response) {
                 localStorage.setItem('recipelist', JSON.stringify(response.data.recipes))
                 Setreceitas(response.data.recipes);
               }).catch(function (error) {
                 console.error(error);
               });
-              console.log(receitas)
+              console.log(receitas)*/
             }}
           />
         </StyledNewRecipes>
